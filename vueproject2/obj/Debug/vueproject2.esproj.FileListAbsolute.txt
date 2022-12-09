@@ -1,0 +1,2 @@
+C:\Users\MUST_CSIE\Desktop\vueproject2\vueproject2\obj\Debug\vueproject2.esproj.SuggestedBindingRedirects.cache
+C:\Users\MUST_CSIE\Desktop\vueproject2\vueproject2\obj\Debug\vueproject2.esproj.CoreCompileInputs.cache

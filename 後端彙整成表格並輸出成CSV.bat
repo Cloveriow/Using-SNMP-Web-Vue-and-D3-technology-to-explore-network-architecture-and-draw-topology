@@ -1,0 +1,1 @@
+C:\Users\MUST_CSIE\Desktop\vueproject2\ConsoleApp10\ConsoleApp10\bin\Debug\net6.0\ConsoleApp10.exe

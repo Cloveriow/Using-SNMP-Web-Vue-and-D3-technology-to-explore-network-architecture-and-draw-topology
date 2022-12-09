@@ -1,0 +1,14 @@
+Microsoft Windows [版本 10.0.19045.2251]
+(c) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+C:\Users\MUST_CSIE\Desktop\vueproject2>C:\Users\MUST_CSIE\Desktop\vueproject2\sharpsnmplib-samples-master\Samples\CSharpCore\snmpwalk\bin\Debug\netcoreapp3.1\snmpwalk 192.168.10.254 .1.3.6.1.2.1.4.22.1.2 -c=123
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.1; Data: 80-E8-2C-CF-DE-7C
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.99; Data: 00-1E-BD-1D-FE-C0
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.100; Data: 00-1E-BD-7D-12-40
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.200; Data: 00-1E-BD-57-D7-C0
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.252; Data: 00-1E-BD-6C-4B-40
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.253; Data: 00-1E-BD-1D-FA-40
+Variable: Id: 1.3.6.1.2.1.4.22.1.2.1.192.168.10.254; Data: 00-1E-BD-99-B0-40
+
+C:\Users\MUST_CSIE\Desktop\vueproject2>exit
+

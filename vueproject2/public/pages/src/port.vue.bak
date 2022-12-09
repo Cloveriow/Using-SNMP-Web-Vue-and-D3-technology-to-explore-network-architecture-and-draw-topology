@@ -1,0 +1,277 @@
+<style src="vue-d3-network/dist/vue-d3-network.css"></style>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<template>
+  <div id="app">
+    <div style="border-style: solid">
+        <div>
+          <svg class="bar-chart" ></svg>
+        </div>
+        <div>
+          <button  @click="D3port" type="button">顯示狀態圖</button>
+        </div>
+    </div>
+      <input type="file" ref="doc" @change="readFile()" />
+      <div id="watermark">
+    </div>
+    <d3-network
+      :net-nodes="nodes"
+      :net-links="links"
+      :options="options"
+      @node-click="onClick"
+      @link-click="link_Click"
+      @readFile="readFile"
+    ></d3-network>
+  </div>
+</template>
+<script>
+import * as d3 from "d3";
+import D3Network from "vue-d3-network";
+const nodeIcon1 =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>';
+const nodeIcon2 =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M464 288h-416C21.5 288 0 309.5 0 336v96C0 458.5 21.5 480 48 480h416c26.5 0 48-21.5 48-48v-96C512 309.5 490.5 288 464 288zM320 416c-17.62 0-32-14.38-32-32s14.38-32 32-32s32 14.38 32 32S337.6 416 320 416zM416 416c-17.62 0-32-14.38-32-32s14.38-32 32-32s32 14.38 32 32S433.6 416 416 416zM464 32h-416C21.5 32 0 53.5 0 80v192.4C13.41 262.3 29.92 256 48 256h416c18.08 0 34.59 6.254 48 16.41V80C512 53.5 490.5 32 464 32z"/></svg>';
+export default {
+  components: {
+    D3Network,
+  },
+  data() {
+    return {
+      nodes: [
+        /*{
+          id: 1,
+          name: "",
+          _svgAttrs: "Close", //狀態(暫定)
+          _labelClass: "data2",
+          _color: "Gray", //正常 Green,不確定yellow,關閉 red
+          svgSym:nodeIcon1
+        },*/
+      ],
+      links: [
+        // { sid: 1, tid: 1, name: "null", _color: "rebeccapurple" },
+      ],
+      port: [],
+      options: {
+        force: 3000,
+        nodeSize: 15,
+        nodeLabels: true,
+        linkWidth: 5,
+        //size:{ w:1200, h:1800},
+      },
+      isActive: false, //跳出式視窗判斷
+      file: null, //開啟檔案
+      content: null, //讀取內容
+      nodeAry: null, //nodearray
+      linkAry: null, //linkarray
+    };
+  },
+  methods: {
+    readFile() {
+      this.file = this.$refs.doc.files[0];
+
+      const reader = new FileReader();
+      if (this.file.name.includes("_interface_port.csv")) {
+        //讀取csv
+        reader.onload = (res) => {
+          this.content = res.target.result; //讀取內容
+          this.content = this.content.replace(/ /g, ""); //刪除空白
+          let portCSV = d3.csvParseRows(this.content); //csv讀取
+          let portAry = portCSV[0];
+          let portAry2 = portCSV[1];
+          for (let i = 0; i < portAry.length; i++) {
+            this.port.push({
+              //將讀取資料轉為物件
+              ID: portAry[i],
+              IF: portAry2[i],
+            }); //讀取links
+          }
+        };
+        reader.readAsText(this.file);
+      } else {
+        this.content = "check the console for file output";
+        reader.onload = (res) => {
+          console.log(res.target.result);
+        };
+        reader.onerror = (err) => console.log(err);
+        reader.readAsText(this.file);
+      }
+    },
+    D3port() {
+      let svgWidth = 1000, //svg寬
+        svgHeight = 120; //svg高
+      let textarray = [];
+      let svg = d3
+        .select("svg")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
+      let dataset = [];
+      let svgx = 0;
+      let svgy = 30;
+      for (let i = 0; i < this.port.length; i++) {
+        let cs=(i+1)%12;
+        console.log(cs)
+        if (cs == 0) {
+          svgy = svgy + 50;
+          svgx = 0;
+        }
+        if (this.port[i].IF == 1) {
+          dataset.push(this.port[i].ID);
+          svg
+            .append("circle")
+            .attr("cx", 30 + svgx * 40)
+            .attr("cy", svgy)
+            .attr("r", 13)
+            .attr("fill", "#2ca02c");
+        } else if (this.port[i].IF == 2) {
+          dataset.push(this.port[i].ID);
+          svg
+            .append("circle")
+            .attr("cx", 30 + svgx * 40)
+            .attr("cy", svgy)
+            .attr("r", 13)
+            .attr("fill", "#7f7f7f");
+        }
+        textarray[i] = [svgx, svgy];
+        svgx++;
+      }
+      let text = svg
+        .selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text((d) => d)
+        .attr("x", (d, i) => 25 + 40 * textarray[i][0])
+        .attr("y", (d, i) => textarray[i][1] + 25)
+        .attr("fill", "#A64C38");
+    },
+  },
+};
+</script>
+<style scoped>
+.card {
+  width: 1000px;
+  height: 10px;
+  background: white;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+.card_title {
+  text-align: center;
+  background: white;
+  padding: 16px;
+  border-bottom: 1px solid #cccccc;
+  color: rgb(0, 0, 0);
+  font-size: 40px;
+  line-height: 26px;
+  font-weight: bold;
+}
+.card_body {
+  padding: 16px;
+  color: #555555;
+  font-size: 16px;
+  line-height: 22px;
+}
+</style><!--浮水印CSS!--> 
+<style type="text/css">
+</style>
+<style card-class>
+.buefy_card {
+  max-height: 500px;
+  position: relative;
+  margin-top: 1%;
+  margin-left: 70%;
+  float: right;
+  background: rgba(41, 38, 38, 0.185);
+  border: 1px solid #0066cc;
+  border-radius: 5px;
+}
+.card-content {
+  height: 500px;
+  width: 100px;
+  font-size: 17px;
+  white-space: nowrap;
+  width: 40%;
+  float: right;
+  background: white;
+  background-color: #ffffff;
+}
+</style>
+<style card-class>
+.card-class {
+  background: black;
+  color: white;
+}
+</style>
+<style type="text/css">
+#a {
+  width:100%;
+}
+</style>
+<style>
+#C_table {
+  border: 1px solid #0066cc;
+  padding: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+  display: table;
+}
+.C_tr {
+  display: table-row;
+}
+.C_td {
+  background: #0066cc;
+  color: white;
+  width: 150px;
+  border: 1px solid #cccccc;
+  display: table-cell;
+}
+.C_tv {
+  width: 150px;
+  background: #efefef;
+  border: 1px solid #cccccc;
+  display: table-cell;
+}
+</style>
+<style css_table>
+td {
+  border: 1px solid #333;
+}
+
+thead,
+tfoot {
+  text-align: center;
+
+  background-color: rgba(87, 54, 235, 0.253);
+  border: 1px solid #333;
+  color: #333;
+}
+</style>
+<style scoped>
+.card {
+  width: 1000px;
+  margin: 10px;
+  background: white;
+  border: px solid #cccccc;
+  border-radius: 6px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+.card_title {
+  text-align: center;
+  background: white;
+  padding: 16px;
+  border-bottom: px solid #cccccc;
+  color: rgb(0, 0, 0);
+  font-size: 40px;
+  line-height: 26px;
+  font-weight: bold;
+}
+.card_body {
+  padding: 16px;
+  color: #555555;
+  font-size: 16px;
+  line-height: 22px;
+}
+</style>

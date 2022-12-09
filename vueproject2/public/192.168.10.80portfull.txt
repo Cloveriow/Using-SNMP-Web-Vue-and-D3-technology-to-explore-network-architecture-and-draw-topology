@@ -1,0 +1,35 @@
+Microsoft Windows [版本 10.0.19045.2251]
+(c) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+C:\Users\MUST_CSIE\Desktop\vueproject2>C:\Users\MUST_CSIE\Desktop\vueproject2\sharpsnmplib-samples-master\Samples\CSharpCore\snmpwalk\bin\Debug\netcoreapp3.1\snmpwalk 192.168.10.80 .1.3.6.1.2.1.2.2.1.8 -c=123
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.1; Data: 1
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10001; Data: 1
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10002; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10003; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10004; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10005; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10006; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10007; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10008; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10009; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10010; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10011; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10012; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10013; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10014; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10015; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10016; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10017; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10018; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10019; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10020; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10021; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10022; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10023; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10024; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10101; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10102; Data: 2
+Variable: Id: 1.3.6.1.2.1.2.2.1.8.10501; Data: 1
+
+C:\Users\MUST_CSIE\Desktop\vueproject2>exit
+
